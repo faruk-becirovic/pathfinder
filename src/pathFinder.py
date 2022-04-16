@@ -1,60 +1,6 @@
 import csv
 
 
-class Vertex:
-    # Data type representing a vertex of a graph.
-    # The list child_nodes keeps references to all adjacent nodes.
-    # Variable parent is used for finding the shortest path between two node. (see breadth_first_search)
-
-    def __init__(self, city_id, name):
-        self.name = name
-        self.city_id = city_id
-        self.child_nodes = list()
-        self.parent = None
-
-    def set_child_nodes(self, child_nodes):
-        self.child_nodes.append(child_nodes)
-
-    def set_parent(self, parent):
-        self.parent = parent
-
-
-class Node:
-    # Data type used for queue implementation, keeps reference to the node, the preceding node and succeeding node.
-
-    def __init__(self, vertex):
-        self.previous = None
-        self.following = None
-        self.vertex = vertex
-
-    def get_vertex(self):
-        return self.vertex
-
-
-class Queue:
-    # Implementation of queue data structure.
-    # Uses FIFO principle, has methods to add node to the end, and to remove the node from the beginning.
-
-    def __init__(self, first):
-        self.first = first
-        self.last = first
-        self.length = 1
-
-    def enqueue(self, n):
-        self.last.following = n
-        n.previous = self.last
-        self.last = n
-        self.length += 1
-        if self.length == 1:
-            self.first = n
-
-    def dequeue(self):
-        n = self.first
-        self.first = self.first.following
-        self.length -= 1
-        return n
-
-
 def read_graph():
     # Reeds data from two .csv files that represent the graph.
     # First file represents vertices.
@@ -125,9 +71,9 @@ def find_city(name, graph):
     # Prints message if city is not found.
     for i in graph:
         if i.name == name:
-            print("Found city.")
             return i
-    print("City not found, try again.")
+    
+    return None
 
 
 def find_path():
